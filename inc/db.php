@@ -54,7 +54,33 @@
     }
 
     return false;
+  }
 
+  function get_metrics($user_id, $page) {
+    $offset = 12 * $page;
+    $conn = get_db_connection();
+    $stmt = $conn->prepare("SELECT * FROM metrics WHERE user_id = ? --?");
+    $stmt->bind_param('dd', $user_id, $offset);
+    $stmt->execute();
+
+    $res = $stmt->get_result();
+
+    $out = [];
+    while($row = $res->fetch_assoc())
+    {
+      array_push($out, $row);
+    }
+
+    return $out;
+  }
+
+  function create_metric($name, $issuer) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare("INSERT INTO metrics (user_id, name, created_on, active) VALUES (?, ?, NOW(), 1)");
+    $stmt->bind_param('ds', $issuer, $name);
+    $stmt->execute();
+
+    return true;
   }
 
   function make_login($email, $pass)
