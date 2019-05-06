@@ -6,17 +6,25 @@
     redirect('index.php');
   });
 
-  if(isset($_POST['email']) && isset($_POST['password']))
+  if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['g-recaptcha-response']))
   {
-    $res = make_login($_POST['email'], $_POST['password']);
-
-    if($res === false)
+    if(!verify_recaptcha_response($_POST['g-recaptcha-response'], get_ip()))
     {
-      $err = 'Failed to log in. Please check your credentials.';
+      $err = 'Invalid captcha, please try again!';
     }
     else {
-      set_logged_in_user($res);
-      redirect('index.php');
+
+      $res = make_login($_POST['email'], $_POST['password']);
+
+      if($res === false)
+      {
+        $err = 'Failed to log in. Please check your credentials.';
+      }
+      else {
+        set_logged_in_user($res);
+        redirect('index.php');
+      }
+
     }
   }
  ?>
@@ -88,6 +96,9 @@
                     </div>
                   <?php endif; ?>
                   <div class="text-center">
+                    <div class="g-recaptcha" data-sitekey="6LdiB6IUAAAAAKveCzlA4Ey_ra_Uv730dzSaQGbf"></div>
+                  </div>
+                  <div class="text-center">
                     <input type="submit" class="btn btn-primary my-4" value="Sign In" />
                   </div>
                 </form>
@@ -113,6 +124,7 @@
   <script src="assets/vendor/headroom/headroom.min.js"></script>
   <!-- Argon JS -->
   <script src="assets/js/argon.js?v=1.0.1"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </body>
 
 </html>

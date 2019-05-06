@@ -15,4 +15,4 @@
 - [x] Login-protected pages
 - [ ] Account delete
 - [ ] Social login
-- [ ] ReCAPTCHA integration
+- [x] ReCAPTCHA integration
