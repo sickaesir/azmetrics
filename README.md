@@ -5,8 +5,8 @@
 - [ ] Remember me function
 - [ ] Username recovery via email
 - [ ] Password recovery via email
-- [ ] Email regex validation
-- [ ] Minimum password criteria validation
+- [x] Email regex validation
+- [x] Minimum password criteria validation
 - [ ] Registration confirm via email
 - [ ] Check user name existence on registration
 - [ ] Check latest login date

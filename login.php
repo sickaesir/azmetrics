@@ -3,7 +3,7 @@
   include_once('./inc/inc.php');
 
   if_logged_in(function() {
-    redirect('index.php');
+    redirect('user-panel.php');
   });
 
   if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['g-recaptcha-response']))
@@ -22,7 +22,7 @@
       }
       else {
         set_logged_in_user($res);
-        redirect('index.php');
+        redirect('user-panel.php');
       }
 
     }

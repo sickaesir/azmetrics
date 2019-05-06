@@ -4,6 +4,13 @@
     redirect('login.php');
   }));
 
+  $user_info = get_user(get_logged_in_user());
+
+  if($user_info === false)
+  {
+    die('fatal error, please contact an administrator.');
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -12,25 +19,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="Start your development with a Design System for Bootstrap 4.">
-  <meta name="author" content="Creative Tim">
   <title>:: AzMetrics - User Profile ::</title>
   <!-- Favicon -->
-  <link href="../assets/img/brand/favicon.png" rel="icon" type="image/png">
+  <link href="assets/img/brand/favicon.png" rel="icon" type="image/png">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
   <!-- Icons -->
-  <link href="../assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
-  <link href="../assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="assets/vendor/nucleo/css/nucleo.css" rel="stylesheet">
+  <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <!-- Argon CSS -->
-  <link type="text/css" href="../assets/css/argon.css?v=1.0.1" rel="stylesheet">
+  <link type="text/css" href="assets/css/argon.css?v=1.0.1" rel="stylesheet">
   <!-- Docs CSS -->
-  <link type="text/css" href="../assets/css/docs.min.css" rel="stylesheet">
+  <link type="text/css" href="assets/css/docs.min.css" rel="stylesheet">
 </head>
 
 <body>
   <header class="header-global">
-    <?=include_once('./inc/comps/nav.php')?>
+    <?php include_once('./inc/comps/nav.php'); ?>
   </header>
   <main class="profile-page">
     <section class="section-profile-cover section-shaped my-0">
@@ -59,45 +64,36 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img src="../assets/img/theme/team-4-800x800.jpg" class="rounded-circle">
+                    <img src="assets/img/theme/blank-profile-image.png" class="rounded-circle">
                   </a>
                 </div>
               </div>
               <div class="col-lg-4 order-lg-3 text-lg-right align-self-lg-center">
                 <div class="card-profile-actions py-4 mt-lg-0">
-                  <a href="#" class="btn btn-sm btn-info mr-4">Connect</a>
-                  <a href="#" class="btn btn-sm btn-default float-right">Message</a>
+                  <a href="#" class="btn btn-sm btn-danger mr-4">Delete Account</a>
                 </div>
               </div>
               <div class="col-lg-4 order-lg-1">
                 <div class="card-profile-stats d-flex justify-content-center">
                   <div>
-                    <span class="heading">22</span>
-                    <span class="description">Friends</span>
-                  </div>
-                  <div>
-                    <span class="heading">10</span>
-                    <span class="description">Photos</span>
-                  </div>
-                  <div>
-                    <span class="heading">89</span>
-                    <span class="description">Comments</span>
+                    <span class="heading">0</span>
+                    <span class="description">Active Metrics</span>
                   </div>
                 </div>
               </div>
             </div>
             <div class="text-center mt-5">
-              <h3>Jessica Jones
-                <span class="font-weight-light">, 27</span>
+              <h3><?=$user_info['email']?>
+                <span class="font-weight-light"> (User Id: <?=$user_info['id']?>)</span>
               </h3>
-              <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>Bucharest, Romania</div>
-              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>Solution Manager - Creative Tim Officer</div>
-              <div><i class="ni education_hat mr-2"></i>University of Computer Science</div>
+              <div class="h6 font-weight-300"><i class="ni location_pin mr-2"></i>placeholder</div>
+              <div class="h6 mt-4"><i class="ni business_briefcase-24 mr-2"></i>placeholder</div>
+              <div><i class="ni education_hat mr-2"></i>placeholder</div>
             </div>
             <div class="mt-5 py-5 border-top text-center">
               <div class="row justify-content-center">
                 <div class="col-lg-9">
-                  <p>An artist of considerable range, Ryan — the name taken by Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs and records all of his own music, giving it a warm, intimate feel with a solid groove structure. An artist of considerable range.</p>
+                  <p>placeholder</p>
                   <a href="#">Show more</a>
                 </div>
               </div>
@@ -157,12 +153,12 @@
     </div>
   </footer>
   <!-- Core -->
-  <script src="../assets/vendor/jquery/jquery.min.js"></script>
-  <script src="../assets/vendor/popper/popper.min.js"></script>
-  <script src="../assets/vendor/bootstrap/bootstrap.min.js"></script>
-  <script src="../assets/vendor/headroom/headroom.min.js"></script>
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/popper/popper.min.js"></script>
+  <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+  <script src="assets/vendor/headroom/headroom.min.js"></script>
   <!-- Argon JS -->
-  <script src="../assets/js/argon.js?v=1.0.1"></script>
+  <script src="assets/js/argon.js?v=1.0.1"></script>
 </body>
 
 </html>

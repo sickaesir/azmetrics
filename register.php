@@ -2,7 +2,7 @@
 include_once('./inc/inc.php');
 
 if_logged_in(function() {
-  redirect('index.php');
+  redirect('user-panel.php');
 });
 
 if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password_repeat']))
@@ -82,74 +82,6 @@ if(isset($_POST['email']) && isset($_POST['password']) && isset($_POST['password
                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                       </div>
                       <input class="form-control" placeholder="Repeat Password" type="password" name="password_repeat">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Name" type="text" name="password_repeat">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Surname" type="text" name="surname">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Age" type="number" name="age">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Company" type="text" name="company">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Company Appointment" type="text" name="appointment">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Education" type="text" name="education">
-                    </div>
-                  </div>
-
-
-                  <div class="form-group">
-                    <div class="input-group input-group-alternative">
-                      <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
-                      </div>
-                      <input class="form-control" placeholder="Description" type="text" name="description">
                     </div>
                   </div>
 

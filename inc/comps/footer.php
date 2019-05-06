@@ -15,7 +15,7 @@
         <a target="_blank" href="https://dribbble.com/azmetrics" class="btn btn-neutral btn-icon-only btn-dribbble btn-lg btn-round" data-toggle="tooltip" data-original-title="Follow us">
           <i class="fa fa-dribbble"></i>
         </a>
-        <a target="_blank" href="https://github.com/azmetrics" class="btn btn-neutral btn-icon-only btn-github btn-round btn-lg" data-toggle="tooltip" data-original-title="Star on Github">
+        <a target="_blank" href="https://github.com/sickaesir/azmetrics" class="btn btn-neutral btn-icon-only btn-github btn-round btn-lg" data-toggle="tooltip" data-original-title="Star on Github">
           <i class="fa fa-github"></i>
         </a>
       </div>
