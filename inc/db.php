@@ -4,8 +4,8 @@
   {
     $host = 'localhost';
     $email = 'root';
-    $pass = 'kali_123';
-    $db = 'azmetrics';
+    $pass = '';
+    $db = 'my_av19b9';
 
     $conn = new mysqli($host, $email, $pass, $db);
 
@@ -43,6 +43,15 @@
     return true;
   }
 
+  function set_app_key($metric_id, $app_key) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare("UPDATE metrics SET app_key = ? WHERE id = ?");
+    $stmt->bind_param('sd', $app_key, $metric_id);
+    $stmt->execute();
+
+    return true;
+  }
+
   function get_user($id) {
     $conn = get_db_connection();
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
@@ -56,11 +65,74 @@
     return false;
   }
 
-  function get_metrics($user_id, $page) {
-    $offset = 12 * $page;
+  function delete_metric($metric_id) {
     $conn = get_db_connection();
-    $stmt = $conn->prepare("SELECT * FROM metrics WHERE user_id = ? --?");
-    $stmt->bind_param('dd', $user_id, $offset);
+    $stmt = $conn->prepare('DELETE FROM metrics WHERE id = ?');
+    $stmt->bind_param('d', $metric_id);
+    $stmt->execute();
+
+    return true;
+  }
+
+  function get_metric_value($metric_id) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare('SELECT value, ingested_on, ingestion_ip FROM metric_data WHERE metric_id = ?');
+    $stmt->bind_param('d', $metric_id);
+    $stmt->execute();
+
+    $out = [];
+
+    $res = $stmt->get_result();
+
+    while($row = $res->fetch_assoc())
+    {
+      array_push($out, $row);
+    }
+
+    return $out;
+  }
+
+  function ingest_metric_value($metric_id, $value, $ip) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare('INSERT INTO metric_data (metric_id, value, ingested_on, ingestion_ip) VALUES (?, ?, NOW(), ?)');
+    $stmt->bind_param('dds', $metric_id, $value, $ip);
+    $stmt->execute();
+
+    return true;
+  }
+
+  function get_metric_by_appkey($app_key) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare('SELECT * FROM metrics WHERE app_key = ? LIMIT 1');
+    $stmt->bind_param('s', $app_key);
+    $stmt->execute();
+
+    if($row = $stmt->get_result()->fetch_assoc())
+    {
+      return $row;
+    }
+
+    return false;
+  }
+
+  function get_metric($metric_id) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare('SELECT * FROM metrics WHERE id = ? LIMIT 1');
+    $stmt->bind_param('d', $metric_id);
+    $stmt->execute();
+
+    if($row = $stmt->get_result()->fetch_assoc())
+    {
+      return $row;
+    }
+
+    return false;
+  }
+
+  function get_metrics($user_id, $by_admin) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare("SELECT * FROM metrics WHERE user_id = ? OR ? = true");
+    $stmt->bind_param('db', $user_id, $by_admin);
     $stmt->execute();
 
     $res = $stmt->get_result();

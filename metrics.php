@@ -6,16 +6,7 @@ if(if_not_logged_in(function() {
   redirect('login.php');
 }));
 
-
-$page = intval(0);
-
-if(isset($_GET['page']))
-{
-  $page = intval($_GET['page']);
-}
-
-
-$metrics = get_metrics(get_logged_in_user(), $page);
+$metrics = get_metrics(get_logged_in_user(), is_admin(get_logged_in_user()));
 
 $display_metrics = [];
 
@@ -30,6 +21,10 @@ $display_metrics = [];
       $tmp = [];
     }
 
+  }
+
+  if(count($tmp) > 0) {
+    array_push($display_metrics, $tmp);
   }
 }
 
@@ -110,6 +105,23 @@ $display_metrics = [];
                 foreach($metric_group as $metric) {
                   ?>
 
+                  <div class="col-lg-6 center">
+                    <div class="card card-lift--hover shadow border-0">
+                      <div class="card-body py-5">
+                        <div class="icon icon-shape icon-shape-primary rounded-circle mb-4">
+                          <i class="ni ni-check-bold"></i>
+                        </div>
+
+                        <h6 class="text-primary text-uppercase"><?=$metric['name']?></h6>
+                        <p class="description mt-3">Created on: <?=$metric['created_on']?></p>
+                        <p class="description mt-1">Created by: <?=get_display_name($metric['user_id'])?></p>
+                        <div>
+                          <span class="badge badge-pill badge-<?=($metric['active'] ? 'success' : 'danger')?>"><?=($metric['active'] ? 'Active' : 'Inactive')?></span>
+                        </div>
+                        <a href="metric.php?metric_id=<?=$metric['id']?>" class="btn btn-primary mt-4">Open</a>
+                      </div>
+                    </div>
+                  </div>
                   <?php
                 }
 
