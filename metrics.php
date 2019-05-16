@@ -105,7 +105,7 @@ $display_metrics = [];
                 foreach($metric_group as $metric) {
                   ?>
 
-                  <div class="col-lg-6 center">
+                  <div class="col-lg-4">
                     <div class="card card-lift--hover shadow border-0">
                       <div class="card-body py-5">
                         <div class="icon icon-shape icon-shape-primary rounded-circle mb-4">
@@ -127,6 +127,23 @@ $display_metrics = [];
 
                 ?></div><?php
               }
+
+              ?>
+
+              <div class="row row-grid">
+                <div class="col-lg-6 center">
+                  <div class="card card-lift--hover shadow border-0">
+                    <div class="card-body py-5">
+                      <div class="icon icon-shape icon-shape-success rounded-circle mb-4">
+                        <i class="ni ni-fat-add"></i>
+                      </div>
+                      <h6 class="text-primary text-uppercase">Add a new metric!</h6>
+                      <a href="create-metric.php" class="btn btn-success mt-4">Create Metric</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <?php
             }
             ?>
           </div>

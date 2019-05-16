@@ -24,6 +24,8 @@
   }
 
   function is_admin($id) {
+    if($id === null) return false;
+    
     $user_info = get_user($id);
     if($id === false) return false;
 

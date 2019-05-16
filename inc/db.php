@@ -52,6 +52,47 @@
     return true;
   }
 
+  function set_admin($user_id) {
+    $conn = get_db_connection();
+    $stmt = $conn->prepare("UPDATE users SET admin = !admin WHERE id = ?");
+    $stmt->bind_param('d', $user_id);
+    $stmt->execute();
+  }
+
+  function get_users($search_filter = '') {
+    $conn= get_db_connection();
+    $stmt = $conn->prepare('SELECT * FROM users');
+    $stmt->execute();
+
+    $res = $stmt->get_result();
+
+    $out = [];
+    $i = 0;
+    $tmp = [];
+    while($row = $res->fetch_assoc()) {
+
+      if($search_filter !== '' && !preg_match('/' . $search_filter . '/', $row['email'])) {
+        continue;
+      }
+
+      array_push($tmp, $row);
+
+      if((++$i % 5) === 0) {
+        array_push($out, $tmp);
+        $tmp = [];
+      }
+    }
+
+    if(count($tmp) !== 0) {
+      array_push($out, $tmp);
+      $tmp = [];
+    }
+
+
+    return $out;
+
+  }
+
   function get_user($id) {
     $conn = get_db_connection();
     $stmt = $conn->prepare("SELECT * FROM users WHERE id = ?");
@@ -76,7 +117,7 @@
 
   function get_metric_value($metric_id) {
     $conn = get_db_connection();
-    $stmt = $conn->prepare('SELECT value, ingested_on, ingestion_ip FROM metric_data WHERE metric_id = ? ORDER BY ingested_on DESC LIMIT 10');
+    $stmt = $conn->prepare('SELECT value, ingested_on, ingestion_ip FROM metric_data WHERE metric_id = ? ORDER BY ingested_on DESC LIMIT 100');
     $stmt->bind_param('d', $metric_id);
     $stmt->execute();
 
@@ -88,6 +129,8 @@
     {
       array_push($out, $row);
     }
+
+    $out = array_reverse($out);
 
     return $out;
   }
