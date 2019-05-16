@@ -76,7 +76,7 @@
 
   function get_metric_value($metric_id) {
     $conn = get_db_connection();
-    $stmt = $conn->prepare('SELECT value, ingested_on, ingestion_ip FROM metric_data WHERE metric_id = ?');
+    $stmt = $conn->prepare('SELECT value, ingested_on, ingestion_ip FROM metric_data WHERE metric_id = ? ORDER BY ingested_on DESC LIMIT 10');
     $stmt->bind_param('d', $metric_id);
     $stmt->execute();
 

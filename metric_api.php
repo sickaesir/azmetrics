@@ -33,9 +33,10 @@
     break;
 
     case 'retrieve':
-      return_json_response(['success' => true, 'data' => get_metric_value($metric['id'])]);
+      $data = array_reverse(get_metric_value($metric['id']));
+      return_json_response(['success' => true, 'data' => $data]);
     break;
-    
+
     default: return_json_response(['success' => false, 'error' => 'invalid action type!']);
   }
 
